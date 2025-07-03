@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Par ou Ímpar</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(270deg, #ff00cc, #3333ff, #00ffea, #fffb00, #ff00cc);
+            background-size: 1000% 1000%;
+            animation: neonBG 12s ease-in-out infinite;
+        }
+        @keyframes neonBG {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 100%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 0%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            background: #fff;
+            max-width: 400px;
+            margin: auto;
+            padding: 32px 28px 28px 28px;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            text-align: center;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: #3a7bd5;
+            margin-bottom: 18px;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 10px;
+            border: 1.5px solid #3a7bd5;
+            border-radius: 8px;
+            font-size: 1.1em;
+            outline: none;
+            transition: border 0.2s;
+        }
+        input[type="number"]:focus {
+            border: 2px solid #66a6ff;
+        }
+        button {
+            background: linear-gradient(90deg, #3a7bd5 0%, #00d2ff 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 28px;
+            font-size: 1.1em;
+            margin-top: 16px;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(58, 123, 213, 0.08);
+            transition: background 0.2s, transform 0.1s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+            transform: scale(1.04);
+        }
+        #resultado {
+            margin-top: 24px;
+            font-weight: bold;
+            font-size: 1.2em;
+            min-height: 32px;
+            transition: color 0.3s;
+        }
+        .par {
+            color: #3a7bd5;
+            animation: pop 0.4s;
+        }
+        .impar {
+            color: #ff5e62;
+            animation: pop 0.4s;
+        }
+        .erro {
+            color: #ff9800;
+            animation: shake 0.3s;
+        }
+        @keyframes pop {
+            0% { transform: scale(0.8); }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Verifique se o número é Par ou Ímpar</h2>
+        <input type="number" id="numero" placeholder="Digite um número" />
+        <button onclick="verificarParOuImpar()">Verificar</button>
+        <div id="resultado"></div>
+    </div>
+    <script>
+        function verificarParOuImpar() {
+            const numero = document.getElementById('numero').value;
+            const resultado = document.getElementById('resultado');
+            resultado.className = '';
+            if (numero === "") {
+                resultado.textContent = "Por favor, digite um número.";
+                resultado.classList.add('erro');
+                return;
+            }
+            if (isNaN(numero)) {
+                resultado.textContent = "Valor inválido.";
+                resultado.classList.add('erro');
+                return;
+            }
+            if (Number(numero) % 2 === 0) {
+                resultado.textContent = `O número ${numero} é PAR.`;
+                resultado.classList.add('par');
+            } else {
+                resultado.textContent = `O número ${numero} é ÍMPAR.`;
+                resultado.classList.add('impar');
+            }
+        }
+        document.getElementById('numero').addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                verificarParOuImpar();
+            }
+        });
+    </script>
+</body>
+</html> 
